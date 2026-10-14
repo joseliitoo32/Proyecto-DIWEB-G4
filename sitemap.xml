@@ -1,0 +1,39 @@
+<!-- Sección de Actividades -->
+<url>
+    <loc>https://www.ejemplo-proyecto.com/actividades.html</loc>
+    <lastmod>2026-06-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+</url>
+
+<!-- Subsección: Mis Actividades -->
+<url>
+    <loc>https://www.ejemplo-proyecto.com/mis-actividades.html</loc>
+    <lastmod>2026-06-06</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+</url>
+
+<!-- Subsección: Crear Partido -->
+<url>
+    <loc>https://www.ejemplo-proyecto.com/crear-partido.html</loc>
+    <lastmod>2026-06-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+</url>
+
+<!-- Sección de Perfil de Usuario -->
+<url>
+    <loc>https://www.ejemplo-proyecto.com/perfil.html</loc>
+    <lastmod>2026-06-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+</url>
+
+<!-- Sección de Mensajes -->
+<url>
+    <loc>https://www.ejemplo-proyecto.com/mensajes.html</loc>
+    <lastmod>2026-06-06</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+</url>
