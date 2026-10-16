@@ -3,346 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapa del Sitio - Sitemap HTML</title>
-    <!-- Fuente moderna Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
+    <title>Mapa del Sitio - SportMatch</title>
     <style>
-        :root {
-            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
-            --card-bg: rgba(255, 255, 255, 0.05);
-            --card-border: rgba(255, 255, 255, 0.12);
-            --card-hover-bg: rgba(255, 255, 255, 0.1);
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent-primary: #6366f1;
-            --accent-secondary: #a855f7;
-            --accent-green: #10b981;
-            --accent-orange: #f59e0b;
-            --accent-pink: #ec4899;
-            --glow: rgba(99, 102, 241, 0.25);
-            --radius: 16px;
-        }
-
-        /* Tema Claro */
-        body.light-theme {
-            --bg-gradient: linear-gradient(135deg, #f1f5f9 0%, #e0e7ff 50%, #fae8ff 100%);
-            --card-bg: rgba(255, 255, 255, 0.7);
-            --card-border: rgba(255, 255, 255, 0.8);
-            --card-hover-bg: #ffffff;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --glow: rgba(99, 102, 241, 0.15);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            transition: background-color 0.3s, border-color 0.3s, transform 0.2s;
-        }
-
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background: var(--bg-gradient);
-            color: var(--text-main);
-            min-height: 100vh;
-            padding: 40px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        /* Top Bar Controls */
-        .controls {
-            width: 100%;
-            max-width: 1000px;
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 20px;
-        }
-
-        .theme-btn {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            color: var(--text-main);
-            padding: 10px 18px;
-            border-radius: 30px;
-            cursor: pointer;
-            backdrop-filter: blur(10px);
-            font-weight: 600;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .theme-btn:hover {
-            background: var(--card-hover-bg);
-            transform: translateY(-2px);
-        }
-
-        /* Content Container */
-        .container {
-            width: 100%;
-            max-width: 1000px;
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            backdrop-filter: blur(16px);
-            border-radius: calc(var(--radius) * 1.5);
-            padding: 40px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
         }
 
         header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
         }
 
         header h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            background: linear-gradient(to right, #818cf8, #c084fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 12px;
+            color: #2c3e50;
+            margin-bottom: 5px;
         }
 
         header p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto;
+            color: #666;
         }
 
-        /* Sitemap Grid Layout */
-        .sitemap-root {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
+        main {
+            background: #fff;
+            padding: 25px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
         }
 
-        .home-card {
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(168, 85, 247, 0.2));
-            border: 2px solid var(--accent-primary);
-            border-radius: var(--radius);
-            padding: 20px 24px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            box-shadow: 0 0 25px var(--glow);
-        }
-
-        .grid-sections {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-        }
-
-        /* Cards & Sublists */
-        .sitemap-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: var(--radius);
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .sitemap-card:hover {
-            background: var(--card-hover-bg);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-        }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 1.25rem;
-            font-weight: 700;
-        }
-
-        .icon-box {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .icon-home { background: var(--accent-primary); color: white; }
-        .icon-activities { background: var(--accent-secondary); color: white; }
-        .icon-profile { background: var(--accent-green); color: white; }
-        .icon-messages { background: var(--accent-orange); color: white; }
-        .icon-sub { background: rgba(255, 255, 255, 0.1); color: var(--text-main); }
-
-        .sub-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            padding-left: 12px;
-            border-left: 2px solid var(--card-border);
+        ul {
+            list-style-type: disc;
             margin-left: 20px;
         }
 
-        /* Nav Links */
-        a.nav-link {
+        li {
+            margin-bottom: 10px;
+        }
+
+        ul ul {
+            margin-top: 5px;
+            list-style-type: circle;
+        }
+
+        a {
+            color: #3498db;
             text-decoration: none;
-            color: var(--text-main);
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: color 0.2s, transform 0.2s;
         }
 
-        a.nav-link:hover {
-            color: var(--accent-primary);
-            transform: translateX(4px);
-        }
-
-        .sub-link {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            font-weight: 500;
-        }
-
-        .sub-link:hover {
-            color: var(--accent-secondary);
-        }
-
-        /* Badge Tag */
-        .badge {
-            font-size: 0.75rem;
-            padding: 4px 8px;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text-muted);
-            margin-left: auto;
-            font-weight: 500;
+        a:hover {
+            text-decoration: underline;
         }
 
         footer {
-            margin-top: 40px;
-            color: var(--text-muted);
-            font-size: 0.9rem;
             text-align: center;
-        }
-
-        /* Responsivo */
-        @media (max-width: 600px) {
-            .container { padding: 24px 16px; }
-            header h1 { font-size: 1.8rem; }
-            .grid-sections { grid-template-columns: 1fr; }
+            margin-top: 30px;
+            color: #777;
+            font-size: 0.9rem;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Selector de Tema (Modo Oscuro / Claro) -->
-    <div class="controls">
-        <button class="theme-btn" id="themeToggle" onclick="toggleTheme()">
-            🌙 Modo Claro
-        </button>
-    </div>
+    <header>
+        <h1>Mapa del Sitio (Sitemap HTML)</h1>
+        <p>SportMatch - Estructura de navegación de la plataforma</p>
+    </header>
 
-    <div class="container">
-        <header>
-            <h1>Mapa del Sitio</h1>
-            <p>Estructura de navegación interactiva y organizada para acceder rápidamente a todas las secciones de la plataforma.</p>
-        </header>
+    <main>
+        <nav>
+            <ul>
+                <li>
+                    <a href="index.html"><strong>Inicio</strong></a>
+                    <p>Página principal con la presentación de la plataforma y actividades destacadas.</p>
+                </li>
+                <li>
+                    <a href="actividades.html"><strong>Actividades</strong></a>
+                    <p>Listado general de partidos y eventos deportivos disponibles para unirse.</p>
+                    <ul>
+                        <li><a href="mis-actividades.html">Mis Actividades</a> (Gestión de eventos propios y a los que te has unido)</li>
+                        <li><a href="crear-partido.html">Crear Partido</a> (Formulario para organizar un nuevo encuentro deportivo)</li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="mensajes.html"><strong>Mensajes</strong></a>
+                    <p>Bandeja de entrada y chat con otros usuarios y participantes.</p>
+                </li>
+                <li>
+                    <a href="perfil.html"><strong>Perfil</strong></a>
+                    <p>Información personal, estadísticas, preferencias y configuración de la cuenta.</p>
+                </li>
+            </ul>
+        </nav>
+    </main>
 
-        <main>
-            <nav aria-label="Mapa semántico del sitio" class="sitemap-root">
-                
-                <!-- Nodo Principal: INICIO -->
-                <div class="home-card">
-                    <div class="icon-box icon-home">
-                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-                    </div>
-                    <div>
-                        <a href="index.html" class="nav-link" style="font-size: 1.3rem;">Inicio</a>
-                        <p style="color: var(--text-muted); font-size: 0.85rem;">Página principal y centro neurálgico del sitio</p>
-                    </div>
-                </div>
+    <footer>
+        <p>&copy; 2026 SportMatch. Todos los derechos reservados.</p>
+    </footer>
 
-                <!-- Secciones Derivadas -->
-                <div class="grid-sections">
-                    
-                    <!-- Tarjeta: Actividades y Subsecciones -->
-                    <div class="sitemap-card">
-                        <div class="card-header">
-                            <div class="icon-box icon-activities">
-                                <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            </div>
-                            <a href="actividades.html" class="nav-link">Actividades</a>
-                        </div>
-                        
-                        <!-- Subsecciones -->
-                        <ul class="sub-list">
-                            <li>
-                                <a href="mis-actividades.html" class="nav-link sub-link">
-                                    ▸ Mis Actividades
-                                </a>
-                            </li>
-                            <li>
-                                <a href="crear-partido.html" class="nav-link sub-link">
-                                    ▸ Crear Partido
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Tarjeta: Perfil -->
-                    <div class="sitemap-card">
-                        <div class="card-header">
-                            <div class="icon-box icon-profile">
-                                <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                            </div>
-                            <a href="perfil.html" class="nav-link">Perfil</a>
-                        </div>
-                        <p style="color: var(--text-muted); font-size: 0.9rem;">Gestión de datos de usuario y configuración personal.</p>
-                    </div>
-
-                    <!-- Tarjeta: Mensajes -->
-                    <div class="sitemap-card">
-                        <div class="card-header">
-                            <div class="icon-box icon-messages">
-                                <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 10h.01M12 10h.01M16 10h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
-                            </div>
-                            <a href="mensajes.html" class="nav-link">Mensajes</a>
-                        </div>
-                        <p style="color: var(--text-muted); font-size: 0.9rem;">Centro de comunicación y bandeja de entrada.</p>
-                    </div>
-
-                </div>
-            </nav>
-        </main>
-
-        <footer>
-            <p>&copy; 2026 Plataforma Deportiva - Mapa del Sitio Orientado al Usuario</p>
-        </footer>
-    </div>
-
-    <script>
-        function toggleTheme() {
-            const body = document.body;
-            const btn = document.getElementById('themeToggle');
-            body.classList.toggle('light-theme');
-            
-            if (body.classList.contains('light-theme')) {
-                btn.innerHTML = '☀️ Modo Oscuro';
-            } else {
-                btn.innerHTML = '🌙 Modo Claro';
-            }
-        }
-    </script>
 </body>
 </html>
