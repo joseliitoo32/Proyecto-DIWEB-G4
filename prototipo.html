@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SportMatch - Actividades y Amigos</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandDark: '#0d472a',
+                        brandDarkHover: '#09361f',
+                        brandLime: '#ccf144',
+                        brandLimeLight: '#e4f88b',
+                        brandOrange: '#c0392b',
+                        brandOrangeHover: '#a02e22',
+                        brandBg: '#f5f5f0',
+                        brandCardBg: '#eef2eb',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f5f0;
+            color: #1f2937;
+        }
+        .toast-enter {
+            transform: translateY(100%);
+            opacity: 0;
+        }
+        .toast-enter-active {
+            transform: translateY(0);
+            opacity: 1;
+            transition: all 300ms ease-out;
+        }
+        .toast-exit {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .toast-exit-active {
+            transform: translateY(100%);
+            opacity: 0;
+            transition: all 300ms ease-in;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased">
+
+    <!-- TOP HEADER / NAVIGATION -->
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            
+            <!-- Logo & Brand -->
+            <div onclick="navigateTo('inicio')" class="flex items-center gap-2.5 cursor-pointer select-none group">
+                <div class="w-8 h-8 rounded-full bg-brandDark flex items-center justify-center text-white text-base font-bold transition-transform group-hover:scale-105">
+                    <i class="fa-solid fa-[#ffffff] fa-lg">
+                        <svg class="w-5 h-5 fill-current text-white" viewBox="0 0 24 24">
+                            <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2.5"/>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" fill="none" stroke="currentColor" stroke-width="2"/>
+                            <path d="M2 12h20" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </i>
+                </div>
+                <span class="text-xl font-bold tracking-tight text-gray-900">SportMatch</span>
+            </div>
+
+            <!-- Right Nav Icons & Links -->
+            <div class="flex items-center gap-4 sm:gap-6">
+                <button onclick="navigateTo('explorar')" class="text-sm font-semibold text-gray-700 hover:text-brandDark transition-colors hidden sm:block">
+                    Explorar actividades
+                </button>
+                <button onclick="showNotification('Comunidad: tienes 3 solicitudes de amistad pendientes', 'info')" class="text-gray-600 hover:text-gray-900 p-2 rounded-full hover:bg-gray-100 transition-colors relative" title="Comunidad / Amigos">
+                    <i class="fa-solid fa-user-group text-lg"></i>
+                    <span class="absolute top-1 right-1 w-2 h-2 bg-brandOrange rounded-full"></span>
+                </button>
+                <!-- User Avatar Button -->
+                <button onclick="navigateTo('perfil')" id="header-avatar-btn" class="w-9 h-9 rounded-full bg-brandLime font-bold text-gray-900 border-2 border-brandDark/20 flex items-center justify-center text-sm shadow-sm hover:ring-2 hover:ring-brandDark/30 transition-all">
+                    A
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full">
+
+        <!-- ==================== VIEW 1: INICIO ==================== -->
+        <section id="view-inicio" class="space-y-6">
+            <!-- Hero Field Banner -->
+            <div class="relative bg-[#0d472a] rounded-2xl p-6 md:p-10 overflow-hidden shadow-md text-white border border-emerald-900">
+                <!-- Field Diagram Artwork SVG -->
+                <div class="relative z-10 w-full h-44 sm:h-52 border-2 border-emerald-500/40 rounded-lg flex items-center justify-center p-4 bg-emerald-950/30">
+                    <div class="w-full h-full border border-emerald-500/30 relative flex justify-center items-center">
+                        <div class="absolute inset-y-0 left-0 w-1/5 border-r border-t border-b border-emerald-500/30"></div>
+                        <div class="absolute inset-y-0 right-0 w-1/5 border-l border-t border-b border-emerald-500/30"></div>
+                        <div class="h-full border-r border-emerald-500/30"></div>
+                        <div class="w-16 h-16 border border-emerald-500/30 rounded-full absolute"></div>
+                        <div class="absolute top-4 right-12 w-8 h-8 rounded-full border border-brandOrange flex items-center justify-center text-brandOrange text-xs">
+                            <i class="fa-solid fa-crosshairs"></i>
+                        </div>
+                    </div>
+                    <span class="absolute bottom-3 left-3 bg-white/90 text-gray-800 text-xs px-2.5 py-1 rounded-md font-medium shadow-sm">
+                        Foto de portada · [IMAGEN]
+                    </span>
+                </div>
+            </div>
+
+            <!-- Welcome Banner -->
+            <div class="bg-white rounded-2xl p-6 sm:p-8 border border-gray-200/80 shadow-sm">
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight">Encuentra con quién moverte hoy</h1>
+                <p class="text-gray-600 mt-2 text-sm sm:text-base">Únete a actividades deportivas cerca de ti y conoce a gente con tu mismo ritmo.</p>
+            </div>
+
+            <!-- Actividades Cerca de ti -->
+            <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-lg font-bold text-gray-900">Actividades cerca de ti</h2>
+                    <button onclick="navigateTo('explorar')" class="text-sm font-semibold text-gray-700 hover:text-brandDark underline">Ver todas</button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5" id="inicio-cards-container">
+                    <!-- Dynamic Activity Cards will be rendered here -->
+                </div>
+            </div>
+
+            <!-- Prominent Create Button -->
+            <div class="pt-4">
+                <button onclick="navigateTo('crear')" class="w-full bg-brandOrange hover:bg-brandOrangeHover text-white font-bold py-4 px-6 rounded-xl shadow-md transition-all flex items-center justify-center gap-2 text-base sm:text-lg transform active:scale-[0.99]">
+                    <i class="fa-solid fa-plus text-lg"></i>
+                    Crear actividad
+                </button>
+            </div>
+        </section>
+
+        <!-- ==================== VIEW 2: PERFIL ==================== -->
+        <section id="view-perfil" class="space-y-6 hidden">
+            <!-- Profile Header Card -->
+            <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+                <!-- Cover Header Banner -->
+                <div class="h-32 sm:h-40 bg-brandDark relative overflow-hidden">
+                    <div class="absolute -right-8 -bottom-12 w-48 h-48 rounded-full border-4 border-emerald-500/20"></div>
+                    <div class="absolute -right-2 -bottom-6 w-36 h-36 rounded-full border-2 border-brandLime/40"></div>
+                </div>
+                
+                <!-- Profile Main Info -->
+                <div class="px-6 pb-6 pt-0 relative">
+                    <!-- Avatar and Edit Button Row -->
+                    <div class="flex flex-col sm:flex-row items-start sm:items-end justify-between -mt-14 sm:-mt-16 mb-4 gap-4">
+                        <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-brandLime border-4 border-white shadow-md flex items-center justify-center text-gray-900 font-extrabold text-2xl sm:text-3xl z-10">
+                            <span id="profile-avatar-display">AG</span>
+                        </div>
+                        <button onclick="openEditProfileModal()" class="border-2 border-gray-800 text-gray-800 hover:bg-gray-900 hover:text-white text-sm font-bold px-4 py-2 rounded-xl transition-all flex items-center gap-2 self-end sm:self-auto shadow-sm">
+                            <i class="fa-regular fa-pen-to-square"></i>
+                            Editar perfil
+                        </button>
+                    </div>
+
+                    <!-- Name and Bio -->
+                    <div>
+                        <h1 id="profile-name-display" class="text-2xl sm:text-3xl font-extrabold text-gray-900">Álex García</h1>
+                        <p class="text-xs sm:text-sm text-gray-500 font-medium mt-1">
+                            <span id="profile-location-display">Madrid, España</span> · Miembro desde marzo de 2025
+                        </p>
+                        <p id="profile-bio-display" class="text-gray-700 text-sm mt-3 max-w-2xl">
+                            Me gusta el deporte al aire libre y conocer gente con quien entrenar.
+                        </p>
+                    </div>
+
+                    <hr class="my-6 border-gray-100">
+
+                    <!-- Stats Grid -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-left">
+                        <div>
+                            <span class="text-xs font-bold text-gray-400 uppercase tracking-wider block mb-2">DEPORTES FAVORITOS</span>
+                            <div class="flex flex-wrap gap-1.5" id="profile-sports-list">
+                                <span class="bg-gray-900 text-white text-xs font-semibold px-3 py-1 rounded-full">Fútbol</span>
+                                <span class="bg-gray-900 text-white text-xs font-semibold px-3 py-1 rounded-full">Pádel</span>
+                                <span class="bg-gray-900 text-white text-xs font-semibold px-3 py-1 rounded-full">Ciclismo</span>
+                            </div>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-gray-400 uppercase tracking-wider block mb-1">ACTIVIDADES REALIZADAS</span>
+                            <span class="text-2xl font-extrabold text-gray-900">24</span>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-gray-400 uppercase tracking-wider block mb-1">COMUNIDAD</span>
+                            <span class="text-2xl font-extrabold text-gray-900">18 <span class="text-sm font-normal text-gray-500">amigos</span></span>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-gray-400 uppercase tracking-wider block mb-1">DISPONIBILIDAD</span>
+                            <span class="text-sm font-bold text-gray-800 leading-tight block">Tardes y fines de semana</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Tabs -->
+            <div class="border-b border-gray-200">
+                <nav class="flex gap-8">
+                    <button onclick="switchProfileTab('mis-actividades')" id="tab-mis-actividades" class="py-3 px-1 border-b-2 border-brandDark font-bold text-brandDark text-sm">
+                        Mis actividades
+                    </button>
+                    <button onclick="switchProfileTab('historial')" id="tab-historial" class="py-3 px-1 border-b-2 border-transparent font-medium text-gray-500 hover:text-gray-700 text-sm">
+                        Historial
+                    </button>
+                    <button onclick="switchProfileTab('amigos')" id="tab-amigos" class="py-3 px-1 border-b-2 border-transparent font-medium text-gray-500 hover:text-gray-700 text-sm">
+                        Amigos
+                    </button>
+                </nav>
+            </div>
+
+            <!-- Tab Content: Mis Actividades -->
+            <div id="content-mis-actividades" class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-xl font-extrabold text-gray-900">Próximas actividades</h2>
+                    <button onclick="navigateTo('explorar')" class="text-sm font-bold text-gray-700 hover:underline">Ver todas</button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5" id="profile-activities-container">
+                    <!-- Profile User Cards dynamically rendered -->
+                </div>
+
+                <!-- Dashed Create Activity Button -->
+                <button onclick="navigateTo('crear')" class="w-full border-2 border-dashed border-emerald-700/60 bg-emerald-50/40 hover:bg-emerald-50 text-emerald-900 font-bold py-4 rounded-xl text-center transition-all flex items-center justify-center gap-2 hover:border-emerald-700 mt-4">
+                    <i class="fa-solid fa-plus"></i>
+                    Crear actividad
+                </button>
+            </div>
+
+            <!-- Tab Content: Historial -->
+            <div id="content-historial" class="hidden bg-white p-6 rounded-2xl border border-gray-200">
+                <h3 class="text-lg font-bold mb-4 text-gray-900">Actividades completadas anteriormente</h3>
+                <ul class="divide-y divide-gray-100">
+                    <li class="py-3 flex justify-between items-center">
+                        <div>
+                            <p class="font-bold text-gray-800">Torneo de Pádel Dobles</p>
+                            <p class="text-xs text-gray-500">hace 2 semanas · Club Pádel Norte</p>
+                        </div>
+                        <span class="text-xs font-semibold bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full">Completado</span>
+                    </li>
+                    <li class="py-3 flex justify-between items-center">
+                        <div>
+                            <p class="font-bold text-gray-800">Carrera 10K Retiro</p>
+                            <p class="text-xs text-gray-500">hace 1 mes · Parque del Retiro</p>
+                        </div>
+                        <span class="text-xs font-semibold bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full">Completado</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Tab Content: Amigos -->
+            <div id="content-amigos" class="hidden bg-white p-6 rounded-2xl border border-gray-200">
+                <h3 class="text-lg font-bold mb-4 text-gray-900">Tus Amigos de Deporte (18)</h3>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                    <div class="flex items-center gap-3 p-2 border border-gray-100 rounded-lg">
+                        <div class="w-10 h-10 rounded-full bg-emerald-700 text-white font-bold flex items-center justify-center">CL</div>
+                        <div>
+                            <p class="text-sm font-bold">Carlos L.</p>
+                            <p class="text-xs text-gray-500">Fútbol & Pádel</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 p-2 border border-gray-100 rounded-lg">
+                        <div class="w-10 h-10 rounded-full bg-orange-600 text-white font-bold flex items-center justify-center">MS</div>
+                        <div>
+                            <p class="text-sm font-bold">Marta S.</p>
+                            <p class="text-xs text-gray-500">Running</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== VIEW 3: EXPLORAR / BUSCAR ACTIVIDADES ==================== -->
+        <section id="view-explorar" class="space-y-6 hidden">
+            <!-- Field Banner -->
+            <div class="bg-brandDark text-white rounded-2xl p-6 sm:p-8 relative overflow-hidden shadow-md">
+                <p class="text-xs font-bold tracking-widest text-emerald-300 uppercase mb-2">FÚTBOL 7 · PÁDEL · BALONCESTO</p>
+                <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight max-w-xl">Juega cada semana, sin organizar nada</h1>
+            </div>
+
+            <!-- Search Section Header -->
+            <div class="bg-white rounded-2xl p-6 border border-gray-200/80 shadow-sm space-y-4">
+                <div>
+                    <h2 class="text-2xl font-extrabold text-gray-900">Encuentra tu próximo partido</h2>
+                    <p class="text-gray-500 text-xs sm:text-sm mt-1">Únete a partidos abiertos cerca de ti y completa el equipo en minutos.</p>
+                </div>
+
+                <!-- Filters Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 pt-2">
+                    <div class="md:col-span-1">
+                        <label class="block text-xs font-medium text-gray-500 mb-1">Buscar partido</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-gray-400 text-sm"></i>
+                            <input type="text" id="filter-keyword" placeholder="Nombre, pista o jugador" class="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brandDark">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-gray-500 mb-1">Deporte</label>
+                        <select id="filter-sport" class="w-full px-3 py-2 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brandDark bg-white">
+                            <option value="">Todos los deportes</option>
+                            <option value="Fútbol 7">Fútbol 7</option>
+                            <option value="Pádel">Pádel</option>
+                            <option value="Baloncesto">Baloncesto</option>
+                            <option value="Running">Running</option>
+                            <option value="Ciclismo">Ciclismo</option>
+                            <option value="Voleibol">Voleibol</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-gray-500 mb-1">Ubicación</label>
+                        <select id="filter-location" class="w-full px-3 py-2 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brandDark bg-white">
+                            <option value="">Todas las ciudades</option>
+                            <option value="Cádiz" selected>Cádiz</option>
+                            <option value="Madrid">Madrid</option>
+                            <option value="Barcelona">Barcelona</option>
+                            <option value="Sevilla">Sevilla</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-gray-500 mb-1">Fecha</label>
+                        <select id="filter-date" class="w-full px-3 py-2 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brandDark bg-white">
+                            <option value="">Cualquier fecha</option>
+                            <option value="hoy">Hoy</option>
+                            <option value="finde">Este fin de semana</option>
+                        </select>
+                    </div>
+                    <div class="flex items-end">
+                        <button onclick="applyFilters()" class="w-full bg-brandDark hover:bg-brandDarkHover text-white font-bold py-2 px-4 rounded-xl text-sm transition-all shadow-sm">
+                            Buscar partidos
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- List Container Box -->
+            <div class="bg-white rounded-2xl p-6 border border-gray-200/80 shadow-sm space-y-5">
+                <!-- Sorting & Counter bar -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-100 pb-4">
+                    <div>
+                        <h3 class="text-xl font-extrabold text-gray-900">Partidos cerca de ti</h3>
+                        <p class="text-xs text-gray-500" id="results-count-text">24 partidos encontrados</p>
+                    </div>
+
+                    <div class="flex items-center gap-4 text-xs font-medium text-gray-700">
+                        <label class="flex items-center gap-2 cursor-pointer select-none">
+                            <input type="checkbox" id="filter-available-only" onchange="applyFilters()" class="rounded text-brandDark focus:ring-brandDark w-4 h-4">
+                            <span>Solo con plazas disponibles</span>
+                        </label>
+                        <div class="flex items-center gap-2">
+                            <span>Ordenar:</span>
+                            <select class="border border-gray-300 rounded-lg px-2 py-1 text-xs focus:outline-none">
+                                <option>Más próximos</option>
+                                <option>Menos plazas</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Activity Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5" id="explore-cards-container">
+                    <!-- Rendered dynamically -->
+                </div>
+
+                <!-- Pagination -->
+                <div class="flex flex-col sm:flex-row items-center justify-between pt-4 text-xs text-gray-500 gap-4">
+                    <span>Mostrando <span id="pagination-info">1–3 de 24</span> partidos</span>
+                    <div class="flex items-center gap-1.5 font-semibold">
+                        <button class="px-3 py-1.5 border border-gray-300 rounded-lg hover:bg-gray-100 disabled:opacity-50" disabled>Anterior</button>
+                        <button class="px-3 py-1.5 bg-brandDark text-white rounded-lg">1</button>
+                        <button class="px-3 py-1.5 border border-gray-300 rounded-lg hover:bg-gray-100">2</button>
+                        <button class="px-3 py-1.5 border border-gray-300 rounded-lg hover:bg-gray-100">3</button>
+                        <span class="px-1">...</span>
+                        <button class="px-3 py-1.5 border border-gray-300 rounded-lg hover:bg-gray-100">Siguiente</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Dashed Button -->
+            <button onclick="navigateTo('crear')" class="w-full border-2 border-dashed border-emerald-700/60 bg-emerald-50/40 hover:bg-emerald-50 text-emerald-900 font-bold py-4 rounded-xl text-center transition-all flex items-center justify-center gap-2 hover:border-emerald-700">
+                <i class="fa-solid fa-plus"></i>
+                Crear partido
+            </button>
+        </section>
+
+        <!-- ==================== VIEW 4: CREAR ACTIVIDAD ==================== -->
+        <section id="view-crear" class="hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Form Column -->
+                <div class="lg:col-span-7 bg-white rounded-2xl p-6 sm:p-8 border border-gray-200/80 shadow-sm space-y-6">
+                    <div>
+                        <h1 class="text-3xl font-extrabold text-gray-900">Crear actividad</h1>
+                        <p class="text-sm text-gray-500 mt-1">Crea un evento deportivo y deja que otros jugadores se me apunten.</p>
+                    </div>
+
+                    <form id="create-activity-form" onsubmit="handleCreateActivity(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Nombre de la actividad</label>
+                            <input type="text" id="input-title" required placeholder="Ej. Fútbol 7 de los jueves" class="w-full p-3 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brandDark">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Lugar</label>
+                            <div class="relative">
+                                <input type="text" id="input-location" required placeholder="Busca una pista o dirección" oninput="updateMapPreview(this.value)" class="w-full p-3 pr-10 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brandDark">
+                                <i class="fa-solid fa-location-dot absolute right-3.5 top-3.5 text-gray-400"></i>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Fecha</label>
+                                <input type="date" id="input-date" required class="w-full p-3 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brandDark">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Hora</label>
+                                <input type="time" id="input-time" required class="w-full p-3 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brandDark">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Deporte</label>
+                            <select id="input-sport" required class="w-full p-3 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brandDark bg-white">
+                                <option value="" disabled selected>Selecciona un deporte</option>
+                                <option value="Fútbol 7">Fútbol 7</option>
+                                <option value="Pádel">Pádel</option>
+                                <option value="Baloncesto">Baloncesto</option>
+                                <option value="Running">Running</option>
+                                <option value="Ciclismo">Ciclismo</option>
+                                <option value="Voleibol">Voleibol</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">Sobre el evento</label>
+                            <textarea id="input-description" rows="4" placeholder="Nivel, material necesario, normas del grupo..." class="w-full p-3 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brandDark"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full bg-brandDark hover:bg-brandDarkHover text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition-all flex items-center justify-center gap-2 text-base">
+                            <i class="fa-solid fa-plus"></i>
+                            Crear actividad
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Map Location Preview Column -->
+                <div class="lg:col-span-5 bg-white rounded-2xl p-6 border border-gray-200/80 shadow-sm flex flex-col justify-between h-full min-h-[350px]">
+                    <div>
+                        <h3 class="text-base font-bold text-gray-900 mb-4">Ubicación del evento</h3>
+                        <!-- Simulated Vector Map -->
+                        <div class="w-full h-72 bg-emerald-50 rounded-xl relative overflow-hidden border border-emerald-100 flex items-center justify-center p-4">
+                            <!-- Map Street Blocks Simulation -->
+                            <div class="absolute inset-0 bg-[#e8f0e6] opacity-80">
+                                <div class="w-1/2 h-full bg-white/70 absolute left-0 top-0 border-r-8 border-gray-200/50"></div>
+                                <div class="w-full h-12 bg-white/70 absolute top-1/3 border-b-8 border-gray-200/50"></div>
+                                <div class="w-1/3 h-1/2 bg-emerald-200/40 rounded-lg absolute right-4 top-4 border border-emerald-300"></div>
+                                <div class="w-2/5 h-1/3 bg-emerald-200/40 rounded-lg absolute left-4 bottom-4 border border-emerald-300"></div>
+                            </div>
+                            <!-- Location Pin Marker -->
+                            <div class="relative z-10 flex flex-col items-center animate-bounce">
+                                <i class="fa-solid fa-location-dot text-4xl text-brandDark drop-shadow-md"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p id="map-preview-text" class="text-xs font-semibold text-gray-600 mt-4 text-center bg-gray-50 py-2 rounded-lg border border-gray-100">
+                        Polideportivo Municipal, El Puerto de Santa María
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-gray-200 py-6 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
+            <div>
+                © 2026 SportMatch · Actividades y amigos
+            </div>
+            <div class="flex gap-6 font-medium">
+                <a href="#" onclick="showNotification('Centro de Ayuda: Contacta con soporte@sportmatch.com', 'info'); return false;" class="hover:text-brandDark underline">Ayuda</a>
+                <a href="#" onclick="showNotification('Términos de Privacidad actualizados para 2026', 'info'); return false;" class="hover:text-brandDark underline">Privacidad</a>
+                <a href="#" onclick="showNotification('Contacto: info@sportmatch.com', 'info'); return false;" class="hover:text-brandDark underline">Contacto</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL: EDIT PROFILE -->
+    <div id="modal-edit-profile" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-gray-100 space-y-4">
+            <div class="flex justify-between items-center border-b pb-3">
+                <h3 class="text-lg font-bold text-gray-900">Editar Perfil</h3>
+                <button onclick="closeEditProfileModal()" class="text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <div class="space-y-3">
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Nombre Completo</label>
+                    <input type="text" id="edit-name-input" value="Álex García" class="w-full p-2.5 border rounded-xl text-sm focus:ring-2 focus:ring-brandDark outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Ubicación</label>
+                    <input type="text" id="edit-location-input" value="Madrid, España" class="w-full p-2.5 border rounded-xl text-sm focus:ring-2 focus:ring-brandDark outline-none">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Biografía</label>
+                    <textarea id="edit-bio-input" rows="3" class="w-full p-2.5 border rounded-xl text-sm focus:ring-2 focus:ring-brandDark outline-none">Me gusta el deporte al aire libre y conocer gente con quien entrenar.</textarea>
+                </div>
+            </div>
+            <div class="flex justify-end gap-3 pt-2">
+                <button onclick="closeEditProfileModal()" class="px-4 py-2 border rounded-xl text-sm font-semibold text-gray-600 hover:bg-gray-100">Cancelar</button>
+                <button onclick="saveProfileChanges()" class="px-4 py-2 bg-brandDark text-white rounded-xl text-sm font-semibold hover:bg-brandDarkHover">Guardar Cambios</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: EVENT DETAILS -->
+    <div id="modal-event-detail" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl border border-gray-100 space-y-4">
+            <div class="flex justify-between items-start border-b pb-3">
+                <div>
+                    <span id="modal-event-sport" class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-0.5 rounded-full font-bold">Deporte</span>
+                    <h3 id="modal-event-title" class="text-xl font-extrabold text-gray-900 mt-1">Título Partido</h3>
+                </div>
+                <button onclick="closeEventModal()" class="text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            
+            <div class="space-y-3 text-sm text-gray-700">
+                <div class="flex items-center gap-2">
+                    <i class="fa-regular fa-calendar-days text-brandDark w-5"></i>
+                    <span id="modal-event-date">Fecha y Hora</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-location-dot text-brandDark w-5"></i>
+                    <span id="modal-event-location">Lugar</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-users text-brandDark w-5"></i>
+                    <span id="modal-event-spots">Plazas ocupadas</span>
+                </div>
+                <div class="bg-gray-50 p-3 rounded-xl border border-gray-100 mt-2">
+                    <p class="text-xs font-bold text-gray-500 uppercase mb-1">Detalles del Evento</p>
+                    <p id="modal-event-desc" class="text-xs text-gray-600">Descripción completa del partido...</p>
+                </div>
+            </div>
+
+            <div class="flex justify-end gap-3 pt-2">
+                <button onclick="closeEventModal()" class="px-4 py-2 border rounded-xl text-sm font-semibold text-gray-600 hover:bg-gray-100">Cerrar</button>
+                <button id="modal-join-btn" onclick="toggleJoinCurrentEvent()" class="px-5 py-2 bg-brandDark text-white rounded-xl text-sm font-semibold hover:bg-brandDarkHover transition-all">Unirme a la Actividad</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2"></div>
+
+    <!-- APPLICATION LOGIC JS -->
+    <script>
+        // Global App State Data
+        let activities = [
+            {
+                id: '1',
+                title: 'Ruta de running',
+                sport: 'Running',
+                date: 'Hoy · 18:00',
+                location: 'Parque Central, Madrid',
+                joinedCount: 4,
+                totalSpots: 10,
+                level: 'Todos los niveles',
+                joined: false,
+                bgClass: 'bg-emerald-100/60',
+                icon: 'fa-person-running',
+                city: 'Madrid'
+            },
+            {
+                id: '2',
+                title: 'Partido de voleibol',
+                sport: 'Voleibol',
+                date: 'Sáb · 10:00',
+                location: 'Polideportivo Municipal',
+                joinedCount: 8,
+                totalSpots: 12,
+                level: 'Intermedio',
+                joined: false,
+                bgClass: 'bg-emerald-100/60',
+                icon: 'fa-volleyball',
+                city: 'Madrid'
+            },
+            {
+                id: '3',
+                title: 'Ruta en bici',
+                sport: 'Ciclismo',
+                date: 'Dom · 09:00',
+                location: 'Casa de Campo, Madrid',
+                joinedCount: 6,
+                totalSpots: 10,
+                level: '25 km',
+                joined: false,
+                bgClass: 'bg-amber-100/60',
+                icon: 'fa-person-biking',
+                city: 'Madrid'
+            },
+            {
+                id: '4',
+                title: 'Fútbol 7 en El Puerto',
+                sport: 'Fútbol 7',
+                date: 'Hoy, 16 oct. · 19:00–20:00',
+                location: 'Polideportivo Municipal',
+                joinedCount: 4,
+                totalSpots: 14,
+                level: 'Todos los niveles',
+                joined: false,
+                bgClass: 'bg-emerald-100/60',
+                icon: 'fa-futbol',
+                city: 'Cádiz'
+            },
+            {
+                id: '5',
+                title: 'Dobles mixtos en Puerto Sherry',
+                sport: 'Pádel',
+                date: 'Sáb., 17 oct. · 10:00–11:30',
+                location: 'Club de Pádel Bahía',
+                joinedCount: 1,
+                totalSpots: 4,
+                level: 'Nivel intermedio',
+                joined: false,
+                bgClass: 'bg-indigo-100/60',
+                icon: 'fa-table-tennis-paddle-ball',
+                city: 'Cádiz'
+            },
+            {
+                id: '6',
+                title: '3x3 en la pista del parque',
+                sport: 'Baloncesto',
+                date: 'Dom., 18 oct. · 18:00–19:00',
+                location: 'Parque Genovés',
+                joinedCount: 2,
+                totalSpots: 6,
+                level: 'Todos los niveles',
+                joined: false,
+                bgClass: 'bg-orange-100/60',
+                icon: 'fa-basketball',
+                city: 'Cádiz'
+            }
+        ];
+
+        let selectedEventId = null;
+
+        // INIT APP ON LOAD
+        window.onload = function() {
+            renderInicioCards();
+            renderProfileCards();
+            applyFilters();
+            
+            // Set default date input in creation form to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('input-date').value = today;
+            document.getElementById('input-time').value = '19:00';
+        };
+
+        // NAVIGATION HANDLER
+        function navigateTo(viewName) {
+            const views = ['inicio', 'perfil', 'explorar', 'crear'];
+            views.forEach(v => {
+                const el = document.getElementById(`view-${v}`);
+                if (el) el.classList.add('hidden');
+            });
+
+            const activeView = document.getElementById(`view-${viewName}`);
+            if (activeView) activeView.classList.remove('hidden');
+
+            // Scroll top smoothly
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // RENDER FUNCTIONS
+        function renderInicioCards() {
+            const container = document.getElementById('inicio-cards-container');
+            container.innerHTML = '';
+
+            const topThree = activities.slice(0, 3);
+            topThree.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-2xl border border-gray-200/80 p-5 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between";
+                card.innerHTML = `
+                    <div>
+                        <div class="w-full h-32 ${item.bgClass} rounded-xl flex items-center justify-center mb-4">
+                            <i class="fa-solid ${item.icon} text-3xl text-emerald-900/70"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 text-base">${item.title}</h3>
+                        <p class="text-xs font-semibold text-gray-500 mt-1">${item.date}</p>
+                        <p class="text-xs text-gray-500 mt-0.5">${item.joinedCount} personas</p>
+                    </div>
+                    <button onclick="toggleConnectHome('${item.id}', this)" class="mt-4 w-full py-2 px-4 border border-gray-800 font-bold text-xs text-gray-800 rounded-xl hover:bg-gray-900 hover:text-white transition-all">
+                        ${item.joined ? 'Conectado ✓' : 'Conectar'}
+                    </button>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function renderProfileCards() {
+            const container = document.getElementById('profile-activities-container');
+            container.innerHTML = '';
+
+            const profileItems = [
+                {
+                    title: 'Pádel entre amigos',
+                    badge: 'Intermedio',
+                    badgeBg: 'bg-brandLime text-gray-900',
+                    date: 'Sáb. 17 oct. · 10:00',
+                    location: 'Club Deportivo Las Rosas',
+                    spots: '3 de 4 participantes',
+                    bg: 'bg-brandLime',
+                    icon: 'fa-table-tennis-paddle-ball'
+                },
+                {
+                    title: 'Partido de fútbol 7',
+                    badge: 'Todos los niveles',
+                    badgeBg: 'bg-emerald-100 text-emerald-800',
+                    date: 'Dom. 18 oct. · 11:30',
+                    location: 'Polideportivo de Moratalaz',
+                    spots: '12 de 14 participantes',
+                    bg: 'bg-emerald-100',
+                    icon: 'fa-futbol'
+                },
+                {
+                    title: 'Ruta en bicicleta',
+                    badge: '25 km',
+                    badgeBg: 'bg-amber-100 text-amber-800',
+                    date: 'Dom. 25 oct. · 09:00',
+                    location: 'Casa de Campo, Madrid',
+                    spots: '6 de 10 participantes',
+                    bg: 'bg-amber-100',
+                    icon: 'fa-person-biking'
+                }
+            ];
+
+            profileItems.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-2xl border border-gray-200/80 p-5 shadow-sm flex flex-col justify-between";
+                card.innerHTML = `
+                    <div>
+                        <div class="w-full h-32 ${item.bg} rounded-xl flex items-center justify-center mb-4 relative">
+                            <i class="fa-solid ${item.icon} text-3xl text-gray-800"></i>
+                        </div>
+                        <span class="${item.badgeBg} text-xs px-2.5 py-0.5 rounded-md font-bold inline-block mb-2">${item.badge}</span>
+                        <h3 class="font-extrabold text-gray-900 text-base">${item.title}</h3>
+                        <p class="text-xs font-bold text-gray-600 mt-1">${item.date}</p>
+                        <p class="text-xs text-gray-500">${item.location}</p>
+                        <p class="text-xs text-gray-400 mt-1">${item.spots}</p>
+                    </div>
+                    <button onclick="openEventModalCustom('${item.title}', '${item.date}', '${item.location}', '${item.spots}', '${item.badge}')" class="mt-4 w-full py-2.5 bg-[#122e20] hover:bg-black text-white font-bold text-xs rounded-xl transition-all">
+                        Ver actividad
+                    </button>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // EXPLORE FILTERING LOGIC
+        function applyFilters() {
+            const keyword = document.getElementById('filter-keyword').value.toLowerCase();
+            const sport = document.getElementById('filter-sport').value;
+            const location = document.getElementById('filter-location').value;
+            const availableOnly = document.getElementById('filter-available-only').checked;
+
+            const filtered = activities.filter(act => {
+                const matchesKeyword = act.title.toLowerCase().includes(keyword) || act.location.toLowerCase().includes(keyword);
+                const matchesSport = sport === "" || act.sport === sport;
+                const matchesLoc = location === "" || act.city === location;
+                const matchesAvail = !availableOnly || (act.totalSpots - act.joinedCount > 0);
+                return matchesKeyword && matchesSport && matchesLoc && matchesAvail;
+            });
+
+            const container = document.getElementById('explore-cards-container');
+            container.innerHTML = '';
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-3 text-center py-10">
+                        <i class="fa-solid fa-circle-exclamation text-3xl text-gray-300 mb-2"></i>
+                        <p class="text-sm font-semibold text-gray-500">No se encontraron actividades con estos filtros.</p>
+                    </div>
+                `;
+            } else {
+                filtered.forEach(act => {
+                    const spotsLeft = act.totalSpots - act.joinedCount;
+                    const card = document.createElement('div');
+                    card.className = "bg-white rounded-2xl border border-gray-200/80 p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between";
+                    card.innerHTML = `
+                        <div>
+                            <div class="w-full h-32 ${act.bgClass} rounded-xl flex items-center justify-center mb-4">
+                                <i class="fa-solid ${act.icon} text-3xl text-gray-800"></i>
+                            </div>
+                            <div class="flex items-center justify-between gap-2 mb-2">
+                                <span class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-0.5 rounded-full font-bold">${act.sport}</span>
+                                <span class="text-xs text-gray-500">${act.level}</span>
+                            </div>
+                            <h3 class="font-extrabold text-gray-900 text-base">${act.title}</h3>
+                            <div class="mt-2 space-y-1 text-xs text-gray-600">
+                                <p class="flex items-center gap-1.5"><i class="fa-regular fa-calendar text-gray-400"></i> ${act.date}</p>
+                                <p class="flex items-center gap-1.5"><i class="fa-solid fa-location-dot text-gray-400"></i> ${act.location}</p>
+                            </div>
+                            <div class="mt-3">
+                                <p class="text-xs font-bold text-orange-700 flex items-center gap-1">
+                                    <i class="fa-regular fa-user"></i> ${spotsLeft} de ${act.totalSpots} plazas disponibles
+                                </p>
+                                <div class="w-full bg-gray-200 h-1.5 rounded-full mt-1.5 overflow-hidden">
+                                    <div class="bg-brandDark h-full" style="width: ${(act.joinedCount / act.totalSpots) * 100}%"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="openEventModal('${act.id}')" class="mt-5 w-full py-2.5 border border-gray-800 hover:bg-gray-900 hover:text-white font-bold text-xs text-gray-800 rounded-xl transition-all">
+                            Ver partido
+                        </button>
+                    `;
+                    container.appendChild(card);
+                });
+            }
+
+            document.getElementById('results-count-text').innerText = `${filtered.length} partidos en ${location || 'todas las ubicaciones'}`;
+            document.getElementById('pagination-info').innerText = `1–${filtered.length} de ${filtered.length}`;
+        }
+
+        // CREATE NEW ACTIVITY LOGIC
+        function handleCreateActivity(event) {
+            event.preventDefault();
+            
+            const title = document.getElementById('input-title').value;
+            const location = document.getElementById('input-location').value;
+            const dateVal = document.getElementById('input-date').value;
+            const timeVal = document.getElementById('input-time').value;
+            const sport = document.getElementById('input-sport').value;
+            const desc = document.getElementById('input-description').value;
+
+            // Simple date formatting
+            const formattedDate = `Próximamente (${dateVal} · ${timeVal})`;
+
+            const newAct = {
+                id: Date.now().toString(),
+                title: title,
+                sport: sport,
+                date: formattedDate,
+                location: location,
+                joinedCount: 1,
+                totalSpots: 10,
+                level: 'Todos los niveles',
+                joined: true,
+                bgClass: 'bg-emerald-100/60',
+                icon: getSportIcon(sport),
+                city: 'Cádiz'
+            };
+
+            activities.unshift(newAct);
+            
+            // Clear form
+            document.getElementById('create-activity-form').reset();
+            
+            showNotification('¡Actividad creada con éxito! Redirigiendo...', 'success');
+            
+            // Refresh views
+            renderInicioCards();
+            applyFilters();
+
+            setTimeout(() => {
+                navigateTo('explorar');
+            }, 1000);
+        }
+
+        function getSportIcon(sport) {
+            switch(sport) {
+                case 'Fútbol 7': return 'fa-futbol';
+                case 'Pádel': return 'fa-table-tennis-paddle-ball';
+                case 'Baloncesto': return 'fa-basketball';
+                case 'Running': return 'fa-person-running';
+                case 'Ciclismo': return 'fa-person-biking';
+                case 'Voleibol': return 'fa-volleyball';
+                default: return 'fa-trophy';
+            }
+        }
+
+        function updateMapPreview(val) {
+            const preview = document.getElementById('map-preview-text');
+            preview.innerText = val.trim() ? val : 'Polideportivo Municipal, El Puerto de Santa María';
+        }
+
+        // INTERACTION HANDLERS
+        function toggleConnectHome(id, btn) {
+            const act = activities.find(a => a.id === id);
+            if (act) {
+                act.joined = !act.joined;
+                if (act.joined) {
+                    btn.innerText = 'Conectado ✓';
+                    btn.classList.add('bg-brandDark', 'text-white');
+                    showNotification(`Te has conectado a ${act.title}`, 'success');
+                } else {
+                    btn.innerText = 'Conectar';
+                    btn.classList.remove('bg-brandDark', 'text-white');
+                    showNotification(`Has cancelado la conexión con ${act.title}`, 'info');
+                }
+            }
+        }
+
+        function switchProfileTab(tab) {
+            ['mis-actividades', 'historial', 'amigos'].forEach(t => {
+                document.getElementById(`content-${t}`).classList.add('hidden');
+                const btn = document.getElementById(`tab-${t}`);
+                btn.className = "py-3 px-1 border-b-2 border-transparent font-medium text-gray-500 hover:text-gray-700 text-sm";
+            });
+
+            document.getElementById(`content-${tab}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tab-${tab}`);
+            activeBtn.className = "py-3 px-1 border-b-2 border-brandDark font-bold text-brandDark text-sm";
+        }
+
+        // PROFILE EDIT MODAL LOGIC
+        function openEditProfileModal() {
+            document.getElementById('modal-edit-profile').classList.remove('hidden');
+        }
+
+        function closeEditProfileModal() {
+            document.getElementById('modal-edit-profile').classList.add('hidden');
+        }
+
+        function saveProfileChanges() {
+            const name = document.getElementById('edit-name-input').value;
+            const loc = document.getElementById('edit-location-input').value;
+            const bio = document.getElementById('edit-bio-input').value;
+
+            document.getElementById('profile-name-display').innerText = name;
+            document.getElementById('profile-location-display').innerText = loc;
+            document.getElementById('profile-bio-display').innerText = bio;
+
+            // Generate initials for avatar
+            const initials = name.split(' ').map(n => n[0]).join('').substring(0,2).toUpperCase();
+            document.getElementById('profile-avatar-display').innerText = initials || 'AG';
+            document.getElementById('header-avatar-btn').innerText = initials[0] || 'A';
+
+            closeEditProfileModal();
+            showNotification('Perfil actualizado correctamente', 'success');
+        }
+
+        // EVENT MODAL LOGIC
+        function openEventModal(id) {
+            const act = activities.find(a => a.id === id);
+            if (!act) return;
+            selectedEventId = id;
+
+            document.getElementById('modal-event-sport').innerText = act.sport;
+            document.getElementById('modal-event-title').innerText = act.title;
+            document.getElementById('modal-event-date').innerText = act.date;
+            document.getElementById('modal-event-location').innerText = act.location;
+            document.getElementById('modal-event-spots').innerText = `${act.joinedCount} de ${act.totalSpots} plazas ocupadas`;
+            document.getElementById('modal-event-desc').innerText = `Actividad oficial de ${act.sport}. Organizada para compartir un rato deportivo agradable en ${act.location}.`;
+
+            const btn = document.getElementById('modal-join-btn');
+            btn.innerText = act.joined ? 'Salirme de la Actividad' : 'Unirme a la Actividad';
+            
+            document.getElementById('modal-event-detail').classList.remove('hidden');
+        }
+
+        function openEventModalCustom(title, date, location, spots, badge) {
+            document.getElementById('modal-event-sport').innerText = badge;
+            document.getElementById('modal-event-title').innerText = title;
+            document.getElementById('modal-event-date').innerText = date;
+            document.getElementById('modal-event-location').innerText = location;
+            document.getElementById('modal-event-spots').innerText = spots;
+            document.getElementById('modal-event-desc').innerText = `Evento de tu calendario personal en ${location}.`;
+            
+            document.getElementById('modal-join-btn').innerText = 'Estás inscrito ✓';
+            document.getElementById('modal-event-detail').classList.remove('hidden');
+        }
+
+        function closeEventModal() {
+            document.getElementById('modal-event-detail').classList.add('hidden');
+            selectedEventId = null;
+        }
+
+        function toggleJoinCurrentEvent() {
+            if (!selectedEventId) {
+                closeEventModal();
+                return;
+            }
+            const act = activities.find(a => a.id === selectedEventId);
+            if (act) {
+                act.joined = !act.joined;
+                if (act.joined) {
+                    act.joinedCount++;
+                    showNotification(`Te has unido a ${act.title}`, 'success');
+                } else {
+                    act.joinedCount--;
+                    showNotification(`Te has salido de ${act.title}`, 'info');
+                }
+                applyFilters();
+                renderInicioCards();
+            }
+            closeEventModal();
+        }
+
+        // TOAST NOTIFICATIONS
+        function showNotification(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            const bgColor = type === 'success' ? 'bg-brandDark text-white' : 'bg-gray-900 text-white';
+            const icon = type === 'success' ? 'fa-circle-check text-brandLime' : 'fa-circle-info text-blue-400';
+
+            toast.className = `${bgColor} px-4 py-3 rounded-xl shadow-xl border border-gray-700/50 flex items-center gap-3 text-xs sm:text-sm font-semibold transition-all transform duration-300`;
+            toast.innerHTML = `<i class="fa-solid ${icon} text-base"></i> <span>${message}</span>`;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
