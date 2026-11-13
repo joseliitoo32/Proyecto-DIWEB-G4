@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SportMatch - Crear actividad</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <a class="logo" href="inicio.html"><span>●</span> SportMatch</a>
+    <nav>
+      <a href="inicio.html">Explorar actividades</a>
+      <a href="perfil.html"></a>
+      <a class="avatar" href="perfil.html">A</a>
+    </nav>
+  </header>
+
+  <main>
+    <div style="display:flex; gap:25px; flex-wrap:wrap; align-items:flex-start;">
+
+      <!-- Formulario -->
+      <div class="caja" style="flex:1; min-width:300px;">
+        <h1>Crear actividad</h1>
+        <p>Crea un evento deportivo y deja que otros jugadores se apunten.</p>
+
+        <form action="#" method="post">
+          <label for="nombre">Nombre de la actividad</label>
+          <input type="text" id="nombre" name="nombre" placeholder="Ej. Fútbol 7 de los jueves">
+
+          <label for="lugar">Lugar</label>
+          <input type="text" id="lugar" name="lugar" placeholder="Busca una pista o dirección">
+
+          <div class="fila">
+            <div>
+              <label for="fecha">Fecha</label>
+              <input type="date" id="fecha" name="fecha">
+            </div>
+            <div>
+              <label for="hora">Hora</label>
+              <input type="time" id="hora" name="hora">
+            </div>
+          </div>
+
+          <label for="deporte">Deporte</label>
+          <select id="deporte" name="deporte">
+            <option value="">Selecciona un deporte</option>
+            <option>Fútbol</option>
+            <option>Pádel</option>
+            <option>Voleibol</option>
+            <option>Running</option>
+            <option>Ciclismo</option>
+          </select>
+
+          <label for="descripcion">Sobre el evento</label>
+          <textarea id="descripcion" name="descripcion" placeholder="Nivel, material necesario, normas del grupo..."></textarea>
+
+          <button class="boton" type="submit">+ Crear actividad</button>
+        </form>
+      </div>
+
+      <!-- Mapa -->
+      <div class="caja" style="flex:1; min-width:300px;">
+        <h2>Ubicación del evento</h2>
+        <!-- Aquí puedes poner un iframe de Google Maps -->
+        <div style="background:#e6efe3; height:300px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:3rem;">
+          
+        </div>
+        <p style="margin-top:10px;">Polideportivo Municipal, El Puerto de Santa María</p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <span>© 2026 SportMatch · Actividades y amigos</span>
+    <nav>
+      <a href="#">Ayuda</a>
+      <a href="#">Privacidad</a>
+      <a href="#">Contacto</a>
+    </nav>
+  </footer>
+
+</body>
+</html>
