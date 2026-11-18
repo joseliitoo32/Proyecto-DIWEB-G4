@@ -1,0 +1,22 @@
+
+header {
+    background-color: #f4f4f4;
+    padding: 1rem;
+    text-align: left;
+}
+
+head  {
+   background-color: white;
+}
+
+main {
+    padding: 2rem;
+
+}
+
+
+footer {
+    background-color: #f4f4f4;
+    padding: 1px;
+    text-align: center;
+}
